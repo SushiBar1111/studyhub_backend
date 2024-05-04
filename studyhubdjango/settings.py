@@ -37,16 +37,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'data.Profile',
+    'Profile',
     'rest_framework',
-    'Features.register',
-    'Features.login',
-    'data.interest', 
-    'Features.userInterest',
-    'data.preference',
-    'Features.filter',
-    'Features.updateProfile',
-    'Features.search'
+    'register',
+    'login',
+    'interest', 
+    'userInterest',
+    'preference',
+    'filter',
+    'updateProfile',
+    'search'
 ]
 
 MIDDLEWARE = [
