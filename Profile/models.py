@@ -1,6 +1,8 @@
 from django.db import models
+from datetime import date
+from django.contrib.auth.models import AbstractBaseUser
 
-class UserProfile(models.Model):
+class UserProfile(AbstractBaseUser):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     first_name = models.CharField(max_length=50)
@@ -22,7 +24,7 @@ class UserProfile(models.Model):
     bio = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
 
-    def ageCalculation(self):
+    def ageCalculation(self): #kalkulasi umur berdasarkan birthdate dari pilihan user
         today = date.today()
         user_age = today.year - self.birth_date.year - ((today.month, today.day) < 
         (self.birth_date.month, self.birth_date.day))

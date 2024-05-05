@@ -5,11 +5,3 @@ class UserLoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
         fields = ['email', 'password']
-    
-    
-
-
-
-                
-
-        
