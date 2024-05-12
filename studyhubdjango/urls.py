@@ -7,5 +7,7 @@ urlpatterns = [
     path('login/', include('login.urls')),
     path('interest/', include('userInterest.urls')),
     path('filter/', include('filter.urls')),
-    path('api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls')),
+    path('search/', include('search.urls')),
+    path('/updateProfile', include('updateProfile.urls'))
 ]
