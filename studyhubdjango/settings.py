@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Profile',
     'rest_framework',
+    'rest_framework.authtoken',
     'register',
     'login',
     'interest', 
@@ -47,7 +49,7 @@ INSTALLED_APPS = [
     'filter',
     'updateProfile',
     'search',
-    'rest_framework_simplejwt'
+    
 ]
 
 MIDDLEWARE = [
@@ -145,3 +147,6 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -12,7 +12,8 @@ class UserRegister(APIView):
             hashPassword = make_password(password) #hash password
             serializer.validated_data['password'] = hashPassword
             serializer.save() # create dan save user
-            return Response(serializer.data, status=status.HTTP_201_CREATED) # user created
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) # serializer/form ga valid
+            return Response(status=status.HTTP_201_CREATED) # user created
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
    
