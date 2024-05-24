@@ -1,7 +1,8 @@
 from django.db import models
 from datetime import date
 from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import User
+from preference.models import Preference
+
 
 class UserProfile(AbstractBaseUser):
     email = models.EmailField(unique=True)
@@ -72,5 +73,6 @@ class UserProfile(AbstractBaseUser):
         return f'profile_pictures/user_{instance.id}/{filename}'
     
     profilePicture = models.ImageField(upload_to=user_profilepicture_path, blank=True, null=True) 
-    
+    preferences = models.ManyToManyField(Preference, through='filter.UserPreference')
+
 

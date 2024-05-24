@@ -4,32 +4,45 @@ from .models import UserPreference
 from rest_framework.response import Response
 from preference.models import Preference
 from rest_framework import status
+from Profile.models import UserProfile
+
+
 
 class filtering(APIView):
-    def post(self, request): # create data di intermediary table untuk preferensi user
-        serializer = UserPreferenceSerializer(
-            data=request.data,
-            many=True,
-            context = {'request': request}
-            )
-       
-        if serializer.is_valid():
-            id = serializer.data['id']
-            user_preference = serializer.data['preferences']
-            
-            existUserPreference = UserPreference.objects.filter(id=id)# nyari apakah user udh punya preferensi sebelumnya
-            if existUserPreference.exist(): 
-                existUserPreference.delete()#delete preferensi sebelumnya 
-            
-            for item_preference in user_preference:
-                preference = Preference.objects.create(**item_preference) #create objek data berisi preferensi user
-                UserPreference.objects.create(user=id, preferences=preference) #create objek berisi prefensi user dan id user
+    def post(self, request):
+        serializer = UserPreferenceSerializer(data=request.data)
 
-            return Response(UserPreference, status=status.HTTP_201_CREATED)
-        
+        if serializer.is_valid():
+            user_id = serializer.validated_data['id']  # Access user ID from serializer
+            user_profile = UserProfile.objects.get(id=user_id)  # Get user profile
+
+            UserPreference.objects.filter(user=user_profile).delete()  # Delete existing preferences for this user
+
+            for preference_item in serializer.validated_data['preferences']:
+                gender = preference_item.get('gender')
+                role = preference_item.get('role')
+                academicLevel = preference_item.get('academicLevel')
+                age = preference_item.get('age')
+                location = preference_item.get('location')
+                studyPlace = preference_item.get('studyPlace')
+                learningType = preference_item.get('learningType')
+
+                
+                preference, created = Preference.objects.get_or_create(  # Check for existing preference
+                    gender=gender,
+                    role=role,
+                    academicLevel=academicLevel,
+                    age=age,
+                    location=location,
+                    studyPlace=studyPlace,
+                    learningType=learningType
+                )
+                user_preference = UserPreference.objects.create(user=user_profile, preferences=preference)  # Create user preference
+                user_preference.save()
+                                  
+    
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-            
-    
-            
-    
