@@ -11,7 +11,7 @@ class UserLogin(APIView):
         email = request.data['email']
         password = request.data['password']
 
-        user = User.objects.filter(email=email).first()
+        user = UserProfile.objects.filter(email=email).first()
 
         if user is None:
             return Response({'Invalid Credentials'})#klo ga ada user pake email tersebut

@@ -4,6 +4,7 @@ from rest_framework import status
 from .serializer import UserProfileSerializer
 from django.contrib.auth.hashers import make_password
 
+
 class UserRegister(APIView):
     def post(self, request):
         serializer = UserProfileSerializer(data=request.data)
@@ -12,7 +13,8 @@ class UserRegister(APIView):
             hashPassword = make_password(password) #hash password
             serializer.validated_data['password'] = hashPassword
             serializer.save() # create dan save user
-            return Response(status=status.HTTP_201_CREATED) # user created
+            user_id = serializer.instance.id
+            return Response({'user_id': user_id}, status=status.HTTP_201_CREATED) # user created
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

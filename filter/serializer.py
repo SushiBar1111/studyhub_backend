@@ -3,4 +3,4 @@ from .models import UserPreference
 
 class UserPreferenceSerializer(serializers.ModelSerializer):
     model = UserPreference
-    fields = ['preferences']
+    fields = ['id', 'preferences']
