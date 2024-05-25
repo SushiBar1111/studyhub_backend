@@ -8,7 +8,6 @@ class UserProfile(AbstractBaseUser):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=128)
     first_name = models.CharField(max_length=50, blank=True)
-    last_name = models.CharField(max_length=50, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     GENDER_CHOICES = (
         ('Male', 'Male'),
