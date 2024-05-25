@@ -6,8 +6,6 @@ from preference.models import Preference
 from rest_framework import status
 from Profile.models import UserProfile
 
-
-
 class filtering(APIView):
     def post(self, request):
         serializer = UserPreferenceSerializer(data=request.data)
@@ -18,7 +16,7 @@ class filtering(APIView):
 
             UserPreference.objects.filter(user=user_profile).delete()  # Delete existing preferences for this user
 
-            for preference_item in serializer.validated_data['preferences']:
+            for preference_item in serializer.data['preferences']:
                 gender = preference_item.get('gender')
                 role = preference_item.get('role')
                 academicLevel = preference_item.get('academicLevel')
@@ -27,20 +25,19 @@ class filtering(APIView):
                 studyPlace = preference_item.get('studyPlace')
                 learningType = preference_item.get('learningType')
 
-                
-                preference, created = Preference.objects.get_or_create(  # Check for existing preference
-                    gender=gender,
-                    role=role,
-                    academicLevel=academicLevel,
-                    age=age,
-                    location=location,
-                    studyPlace=studyPlace,
-                    learningType=learningType
-                )
-                user_preference = UserPreference.objects.create(user=user_profile, preferences=preference)  # Create user preference
-                user_preference.save()
-                                  
-    
+                try:
+                    preference = Preference.objects.get(  # Check for existing preference
+                        gender=gender,
+                        role=role,
+                        academicLevel=academicLevel,
+                        age=age,
+                        location=location,
+                        studyPlace=studyPlace,
+                        learningType=learningType
+                    )
+                    UserPreference.objects.create(user=user_profile, preferences=preference)  # Create user preference
+                except Preference.DoesNotExist:
+                    pass
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
