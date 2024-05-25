@@ -26,7 +26,7 @@ class filtering(APIView):
                 learningType = preference_item.get('learningType')
 
                 try:
-                    preference = Preference.objects.get(  # Check for existing preference
+                    preference, created = Preference.objects.get_or_create(  # Check for existing preference
                         gender=gender,
                         role=role,
                         academicLevel=academicLevel,
@@ -37,7 +37,7 @@ class filtering(APIView):
                     )
                     UserPreference.objects.create(user=user_profile, preferences=preference)  # Create user preference
                 except Preference.DoesNotExist:
-                    pass
+                    continue
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
