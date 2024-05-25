@@ -16,4 +16,4 @@ class updateProfileSerializer(serializers.ModelSerializer):
                         'studyPlace':{'required':False, 'allow_blank':True},
                         'learningType':{'required':False, 'allow_blank':True},
                         }
-        fields = [ 'id','email','first_name', 'last_name', 'gender', 'location', 'role', 'bio', 'academicLevel', 'studyPlace', 'learningType']
+        fields = [ 'id','email','first_name', 'gender', 'location', 'role', 'bio', 'academicLevel', 'studyPlace', 'learningType']
