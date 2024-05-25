@@ -11,7 +11,8 @@ urlpatterns = [
     path('filter/', include('filter.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('search/', include('search.urls')),
-    path('updateProfile/', include('updateProfile.urls'))
+    path('updateProfile/', include('updateProfile.urls')),
+    path('profile/', include('Profile.urls'))
 ]
 
 if settings.DEBUG: # buat saat development aja nanti pas mau deployment diganti ke path sesuai server yg digunain.
