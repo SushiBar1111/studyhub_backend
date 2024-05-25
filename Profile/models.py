@@ -2,7 +2,7 @@ from django.db import models
 from datetime import date
 from django.contrib.auth.models import AbstractBaseUser
 from preference.models import Preference
-
+from interest.models import Matkul
 
 class UserProfile(AbstractBaseUser):
     email = models.EmailField(unique=True)
@@ -74,5 +74,6 @@ class UserProfile(AbstractBaseUser):
     
     profilePicture = models.ImageField(upload_to=user_profilepicture_path, blank=True, null=True) 
     preferences = models.ManyToManyField(Preference, through='filter.UserPreference')
+    interest = models.ManyToManyField(Matkul, through='userInterest.UserInterest')
 
 
