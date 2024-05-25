@@ -3,11 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from Profile.models import UserProfile
 from .serializer import updateProfileSerializer
-from rest_framework.permissions import IsAuthenticated
 
 class UpdateProfile(APIView):
-    
-
+    permission_classes = [] # ga ada jd bisa login user nya pertama kali
+    authentication_classes = [] # ga ada jd bisa login user nya pertama kali
     def patch(self, request):
         
         id = request.data.get('id') # ngambil ID dari user yg request

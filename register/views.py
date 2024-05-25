@@ -6,6 +6,8 @@ from django.contrib.auth.hashers import make_password
 
 
 class UserRegister(APIView):
+    permission_classes = [] # ga ada jd bisa login user nya pertama kali
+    authentication_classes = [] # ga ada jd bisa login user nya pertama kali
     def post(self, request):
         serializer = UserProfileSerializer(data=request.data)
         if serializer.is_valid():

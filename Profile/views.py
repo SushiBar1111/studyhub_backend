@@ -5,6 +5,8 @@ from .serializer import ProfileSerializer
 from Profile.models import UserProfile
 
 class UserProfileView(APIView):
+    permission_classes = [] # ga ada jd bisa login user nya pertama kali
+    authentication_classes = [] # ga ada jd bisa login user nya pertama kali
     def get(self, request):
         user_id = request.query_params.get('id')  # mendapatkan ID dari query parameter
 

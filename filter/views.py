@@ -7,6 +7,8 @@ from rest_framework import status
 from Profile.models import UserProfile
 
 class filtering(APIView):
+    permission_classes = [] # ga ada jd bisa login user nya pertama kali
+    authentication_classes = [] # ga ada jd bisa login user nya pertama kali
     def post(self, request):
         serializer = UserPreferenceSerializer(data=request.data)
 
