@@ -5,7 +5,7 @@ import re
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
-        fields = ['email', 'password', 'location', 'birth_date']
+        fields = ['email', 'password', 'birth_date']
         extra_kwargs = {
             'password' : {'write_only': True} #biar ga muncul di response klo ntar responsenya mau diganti jd munculin username
         }
