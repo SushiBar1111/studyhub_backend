@@ -30,8 +30,8 @@ class UserLikeList(APIView): # view buat list siapa yg like kita
         filter_user = UserLike.objects.filter(to_user=id).prefetch_related('from_user') # ngefilter data yg ada id si user yg di like aja
 
         user_data_list = [] # buat nampung list user data yg nge-like
-        for every_user in filter_user:
-            id_from_user = every_user.from_user.id
+        for every_user in filter_user: # iterasi user yang nge-like current user
+            id_from_user = every_user.from_user.id # ngambil user ID yang nge-like current user
             profile = UserProfile.objects.get(id=id_from_user)
             user_data = {
                 "first_name": profile.first_name,
