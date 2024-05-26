@@ -1,15 +1,13 @@
 from rest_framework import serializers
 from .models import UserInterest
+from interest.models import Matkul
 
-class UserInterestSerializer(serializers.ModelSerializer):
+class InterestSerializer(serializers.ModelSerializer):
     class Meta:
-        model = UserInterest
-        fields = ['interest']
+        model = Matkul
+        fields = ['matkul']
 
-class ListInterest(serializers.ListSerializer): # class buat list interest biar user bs mlh >1 interest
-    child = UserInterestSerializer()
-
-    def createList(self, validated_data):
-        user = self.context['request'].user.profile
-        interests = [UserInterest(user=user, **item) for item in validated_data]
-        return UserInterest.objects.bulk_create(interests)
+class UserInterestSerializer(serializers.Serializer):
+    user_id = serializers.IntegerField()
+    interests = serializers.ListField(child=serializers.ChoiceField(choices=Matkul.MATKUL_CHOICES)
+    )

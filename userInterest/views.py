@@ -14,18 +14,17 @@ class choosingInterest(APIView):
 
         serializer = UserInterestSerializer(data=request.data)
 
-        if serializer.is_valid:
-            user_id = serializer.validated_data['id'] # akses user ID dr serializer
-            user_profile = UserProfile.objects.get(id=user_id) # get user profile berdasarkan ID
+        if serializer.is_valid():
+            id = serializer.validated_data['user_id'] # akses user ID dr serializer
+            user_profile = UserProfile.objects.get(id=id) # get user profile berdasarkan ID
+            interest = serializer.validated_data['interests'] # ambil pilihan interest dr serializer
 
             UserInterest.objects.filter(user=user_profile).delete() # delete existing user interest
             
-            for interest_item in serializer.data['interest']:
-                interest_serializer = InterestSerializer(data=serializer.data['interest'])
-                
+            for interest_item in interest:
                 try:
-                    interest, created = Matkul.objects.get_or_create(interest=serializer.data['matkul'])
-                    UserInterest.objects.create(user=user_profile, interest=interest)
+                    matkul = Matkul.objects.get(matkul=interest_item)
+                    UserInterest.objects.create(user=user_profile, interest=matkul)
                 except Matkul.DoesNotExist:
                     continue
             
