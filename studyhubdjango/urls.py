@@ -13,7 +13,8 @@ urlpatterns = [
     path('updateProfile/', include('updateProfile.urls')),
     path('profile/', include('Profile.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh')
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('like/', include('like.urls'))
 ]
 
 if settings.DEBUG: # buat saat development aja nanti pas mau deployment diganti ke path sesuai server yg digunain.

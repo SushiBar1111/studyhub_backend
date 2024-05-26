@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'filter',
     'updateProfile',
     'search',
+    'like',
     
 ]
 
