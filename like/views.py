@@ -5,6 +5,8 @@ from .serializer import LikeSerializer
 from rest_framework import status
 from Profile.models import UserProfile
 from .serializer import UserLikeListSerializer
+from message.models import Convo
+from Profile.models import UserProfile
 
 class Like(APIView): # view buat ngatur user pas like user lain
     permission_classes = [] # ga ada jd bisa login user nya pertama kali
@@ -49,5 +51,25 @@ class UserLikeList(APIView): # view buat list siapa yg like kita
             return Response(serialzer.data, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+
+class Match(APIView): #buat handle klo user pilih match atau ngga
+    permission_classes = []
+    authentication_classes = []
+    def post(self, request):
+
+        pilihan = request.data.get('match') # ambil pilihan user match atau ngga
+        from_user_id = request.data.get('from_user') # id dari user yg ngelike
+        to_user_id = request.data.get('to_user') # id dari user yang di like 
+
+        from_user = UserProfile.objects.get(pk=from_user_id)
+        to_user = UserProfile.objects.get(pk=to_user_id)
+        
+        if pilihan == 'Not Match':
+            UserLike.objects.filter(from_user=from_user_id, to_user=to_user_id).delete() # kalo ga match entry di like database di apus
+            return Response({'message': 'Unmatch'}, status=status.HTTP_200_OK)
+        elif pilihan == 'Match': # klo match buat entry baru di table convo + buat table baru buat nampung message jadi bisa chatan
+            conversation, created = Convo.objects.get_or_create(user1=from_user, user2=to_user) # create table convo buat nampung 2 ID user yang match
+            return Response({'message': 'Matched! Now text your match!'}, status=status.HTTP_201_CREATED)
             
 
