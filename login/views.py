@@ -16,17 +16,17 @@ class UserLogin(APIView):
         user = UserProfile.objects.filter(email=email).first()
 
         if user is None:
-            return Response({'Invalid Credentials'})#klo ga ada user pake email tersebut
+            return Response({'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)#klo ga ada user pake email tersebut
         
         if not user.check_password(password): # cek password berdasarkan email
-            return Response({'Invalid Credentials'})
+            return Response({'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         
         refresh = RefreshToken.for_user(user) #buat token JWT
         return Response({
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }, status=status.HTTP_200_OK)
-    
+        
         
         
 
