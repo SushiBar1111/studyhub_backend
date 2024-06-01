@@ -40,6 +40,11 @@ class Preference(models.Model):
         ('Social Learner', 'Social Learner'),
     )
 
+    MATKUL_CHOICES = (
+        ('Math', 'Math'), ('Biology', 'Biology'), ('Physics', 'Physics'), ('Literature', 'Literature'),
+        ('Coding', 'Coding'), ('Law', 'Law'), ('Accounting', 'Accounting'),
+    )
+
     role = models.CharField(max_length=100, choices=ROLE_CHOICES, default='A Study Mate')
     gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
     age = models.IntegerField()
@@ -47,3 +52,4 @@ class Preference(models.Model):
     academicLevel = models.CharField(max_length=100, blank=True, null=True, choices=ACADEMIC_LEVEL)
     studyPlace = models.CharField(max_length=100, blank=True, null=True, choices=STUDY_PLACE)
     learningType = models.CharField(max_length=100, blank=True, null=True, choices=LEARNING_TYPE)
+    matkul = models.CharField(max_length=10, blank=True, null=True, choices=MATKUL_CHOICES)
