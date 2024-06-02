@@ -22,20 +22,20 @@ class filtering(APIView):
                 gender = preference_item.get('gender')
                 role = preference_item.get('role')
                 academicLevel = preference_item.get('academicLevel')
-                age = preference_item.get('age')
                 location = preference_item.get('location')
                 studyPlace = preference_item.get('studyPlace')
                 learningType = preference_item.get('learningType')
+                matkul = preference_item.get('matkul')
 
                 try:
                     preference, created = Preference.objects.get_or_create(  # Check for existing preference
                         gender=gender,
                         role=role,
                         academicLevel=academicLevel,
-                        age=age,
                         location=location,
                         studyPlace=studyPlace,
-                        learningType=learningType
+                        learningType=learningType,
+                        matkul=matkul
                     )
                     UserPreference.objects.create(user=user_profile, preferences=preference)  # Create user preference
                 except Preference.DoesNotExist:
