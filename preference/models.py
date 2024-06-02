@@ -45,9 +45,8 @@ class Preference(models.Model):
         ('Coding', 'Coding'), ('Law', 'Law'), ('Accounting', 'Accounting'),
     )
 
-    role = models.CharField(max_length=100, choices=ROLE_CHOICES, default='A Study Mate')
-    gender = models.CharField(max_length=6, choices=GENDER_CHOICES)
-    age = models.IntegerField()
+    role = models.CharField(max_length=100, choices=ROLE_CHOICES, blank=True, null=True)
+    gender = models.CharField(max_length=6, choices=GENDER_CHOICES, blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
     academicLevel = models.CharField(max_length=100, blank=True, null=True, choices=ACADEMIC_LEVEL)
     studyPlace = models.CharField(max_length=100, blank=True, null=True, choices=STUDY_PLACE)
