@@ -70,7 +70,7 @@ class UserProfile(AbstractBaseUser):
     @property
     def age(self):
         return self.ageCalculation() #nyimpen kalkulasi umur user 
-
+    
     def __str__(self):
         return self.email
 
