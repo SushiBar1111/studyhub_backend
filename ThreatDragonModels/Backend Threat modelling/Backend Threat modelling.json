@@ -30,10 +30,10 @@
       },
       {
         "id": 2,
-        "title": "New PLOT4ai diagram",
-        "diagramType": "PLOT4ai",
-        "placeholder": "New PLOT4ai diagram description",
-        "thumbnail": "./public/content/images/thumbnail.plot4ai.jpg",
+        "title": "New generic diagram",
+        "diagramType": "Generic",
+        "placeholder": "New generic diagram description",
+        "thumbnail": "./public/content/images/thumbnail.jpg",
         "version": "2.2.0",
         "cells": []
       }
