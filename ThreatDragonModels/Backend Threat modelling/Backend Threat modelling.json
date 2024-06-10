@@ -27,9 +27,18 @@
         "thumbnail": "./public/content/images/thumbnail.cia.jpg",
         "version": "2.2.0",
         "cells": []
+      },
+      {
+        "id": 2,
+        "title": "New PLOT4ai diagram",
+        "diagramType": "PLOT4ai",
+        "placeholder": "New PLOT4ai diagram description",
+        "thumbnail": "./public/content/images/thumbnail.plot4ai.jpg",
+        "version": "2.2.0",
+        "cells": []
       }
     ],
-    "diagramTop": 2,
+    "diagramTop": 3,
     "reviewer": "",
     "threatTop": 0
   }
