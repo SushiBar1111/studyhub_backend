@@ -52,7 +52,7 @@ class UserProfile(AbstractBaseUser):
         ('Coding', 'Coding'), ('Law', 'Law'), ('Accounting', 'Accounting'),
     )
 
-    role = models.CharField(max_length=100, blank=True, null=True, choices=ROLE_CHOICES, default='A Study Mate')
+    role = models.CharField(max_length=100, blank=True, null=True, choices=ROLE_CHOICES)
     gender = models.CharField(max_length=6, blank=True, choices=GENDER_CHOICES)
     bio = models.TextField(blank=True, null=True)
     location = models.CharField(max_length=100, blank=True, null=True)
