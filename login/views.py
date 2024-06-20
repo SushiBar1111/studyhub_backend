@@ -14,7 +14,7 @@ class UserLogin(APIView):
         password = request.data['password']
 
         user = UserProfile.objects.filter(email=email).first()
-
+        
         if user is None:
             return Response({'Invalid Credentials'}, status=status.HTTP_401_UNAUTHORIZED)#klo ga ada user pake email tersebut
         
@@ -25,6 +25,7 @@ class UserLogin(APIView):
         return Response({
             'refresh': str(refresh),
             'access': str(refresh.access_token),
+            'id': user.id
         }, status=status.HTTP_200_OK)
         
         
