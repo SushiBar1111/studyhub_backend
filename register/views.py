@@ -16,7 +16,7 @@ class UserRegister(APIView):
             serializer.validated_data['password'] = hashPassword
             serializer.save() # create dan save user
             user_id = serializer.instance.id
-            return Response({'id': user_id}, status=status.HTTP_201_CREATED) # user created
+            return Response({"message": "User created"}, status=status.HTTP_201_CREATED) # user created
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
