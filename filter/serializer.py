@@ -7,7 +7,6 @@ class PreferenceSerializer(serializers.ModelSerializer):
         model = Preference
         extra_kwargs = {
                         'gender':{'required':False, 'allow_blank':True},
-                        'location':{'required':False, 'allow_blank':True},
                         'matkul':{'required':False, 'allow_blank':True},
                         'role':{'required':False, 'allow_blank':True},
                         'academicLevel':{'required':False, 'allow_blank':True},
@@ -15,7 +14,7 @@ class PreferenceSerializer(serializers.ModelSerializer):
                         'learningType':{'required':False, 'allow_blank':True},
                         'learningType':{'required':False, 'allow_blank':True},
                         }
-        fields = [ 'gender', 'location', 'matkul', 'role', 'academicLevel', 'studyPlace', 'learningType']
+        fields = [ 'gender', 'matkul', 'role', 'academicLevel', 'studyPlace', 'learningType']
 class UserPreferenceSerializer(serializers.ModelSerializer):
     preferences = PreferenceSerializer(many=True)
     id = serializers.IntegerField()
