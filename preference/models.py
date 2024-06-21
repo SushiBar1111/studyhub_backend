@@ -34,7 +34,7 @@ class Preference(models.Model):
         ('Visual Learner', 'Visual Learner'),
         ('Read/Write Learner', 'Read/Write Learner'),
         ('Auditory Learner', 'Auditory Learner'),
-        ('Kinsethetic Learner', 'Kinesthetic Learner'),
+        ('Kinesthetic Learner', 'Kinesthetic Learner'),
         ('Solitary Learner', 'Solitary Learner'),
         ('Naturalistic Learner', 'Naturalistic Learner'),
         ('Social Learner', 'Social Learner'),
