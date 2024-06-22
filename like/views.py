@@ -29,29 +29,33 @@ class UserLikeList(APIView): # view buat list siapa yg like kita
     authentication_classes = []
     def post(self, request):
         id = request.data.get('id')
-        filter_user = UserLike.objects.filter(to_user=id).prefetch_related('from_user') # ngefilter data yg ada id si user yg di like aja
+        filter_user = UserLike.objects.filter(to_user=id)# ngefilter data yg ada id si user yg di like aja
 
+        if not filter_user.exists():  # ga ada yang suka dia
+            return Response({"error": "No users found who liked this user."}, status=status.HTTP_404_NOT_FOUND)
         user_data_list = [] # buat nampung list user data yg nge-like
         for every_user in filter_user: # iterasi user yang nge-like current user
             id_from_user = every_user.from_user.id # ngambil user ID yang nge-like current user
             profile = UserProfile.objects.get(id=id_from_user)
             user_data = {
-                "first_name": profile.first_name,
-                "gender": profile.gender,
-                "location": profile.location,
-                "role": profile.role,
-                "bio": profile.bio,
-                "learningType": profile.learningType,
-                "studyPlace": profile.studyPlace,
-                "academicLevel": profile.academicLevel
+                'id': profile.pk,
+                'first_name': profile.first_name,
+                'gender': profile.gender,
+                'location': profile.location,
+                'role': profile.role,
+                'bio': profile.bio,
+                'learningType': profile.learningType,
+                'studyPlace': profile.studyPlace,
+                'academicLevel': profile.academicLevel,
+                'profilePicture': profile.profilePicture
             }
             user_data_list.append(user_data)
-        serialzer = UserLikeListSerializer(data=user_data_list, many=True)
-        if serialzer.is_valid():
-            return Response(serialzer.data, status=status.HTTP_200_OK)
-        else:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+        listSerializers = []
+        for user_data in user_data_list:
+            serializer = UserLikeListSerializer(instance=user_data)
+            listSerializers.append(serializer)
         
+        return Response([serializer.data for serializer in listSerializers], status=status.HTTP_200_OK)
 
 class Match(APIView): #buat handle klo user pilih match atau ngga
     permission_classes = []
@@ -59,17 +63,18 @@ class Match(APIView): #buat handle klo user pilih match atau ngga
     def post(self, request):
 
         pilihan = request.data.get('match') # ambil pilihan user match atau ngga
-        from_user_id = request.data.get('from_user') # id dari user yg ngelike
-        to_user_id = request.data.get('to_user') # id dari user yang di like 
+        from_user= request.data.get('from_user') # id dari user yg ngelike
+        to_user = request.data.get('to_user') # id dari user yang di like 
 
-        from_user = UserProfile.objects.get(pk=from_user_id)
-        to_user = UserProfile.objects.get(pk=to_user_id)
+        fromUser = UserProfile.objects.get(pk=from_user)
+        toUser = UserProfile.objects.get(pk=to_user)
         
         if pilihan == 'Not Match':
-            UserLike.objects.filter(from_user=from_user_id, to_user=to_user_id).delete() # kalo ga match entry di like database di apus
+            UserLike.objects.filter(from_user_id=from_user, to_user_id=to_user).delete() # kalo ga match entry di like database di apus
             return Response({'message': 'Unmatch'}, status=status.HTTP_200_OK)
         elif pilihan == 'Match': # klo match buat entry baru di table convo + buat table baru buat nampung message jadi bisa chatan
-            conversation, created = Convo.objects.get_or_create(user1=from_user, user2=to_user) # create table convo buat nampung 2 ID user yang match
+            conversation, created = Convo.objects.get_or_create(user1=fromUser, user2=toUser) # create table convo buat nampung 2 ID user yang match
+            UserLike.objects.filter(from_user_id=from_user, to_user_id=to_user).delete() # delete entry
             return Response({'message': 'Matched! Now text your match!'}, status=status.HTTP_201_CREATED)
             
 
