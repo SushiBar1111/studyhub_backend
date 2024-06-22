@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'search',
     'like',
     'message',
+    'api',
     
 ]
 
