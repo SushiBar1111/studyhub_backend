@@ -1,6 +1,12 @@
 from rest_framework import serializers
 from Profile.models import UserProfile
 
+class profilePictureSerializer(serializers.ModelSerializer):
+    profilePicture = serializers.ImageField(required=False, allow_null=True)
+    class Meta:
+        model = UserProfile
+        fields = ['id', 'profilePicture']
+        extra_kwargs = {'id':{'read_only':True}}
 class updateProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
@@ -16,4 +22,4 @@ class updateProfileSerializer(serializers.ModelSerializer):
                         'studyPlace':{'required':False, 'allow_blank':True},
                         'learningType':{'required':False, 'allow_blank':True},
                         }
-        fields = [ 'id','email','first_name', 'gender', 'location', 'matkul', 'role', 'bio', 'academicLevel', 'studyPlace', 'learningType']
+        fields = ['id','email','first_name', 'gender', 'location', 'matkul', 'role', 'bio', 'academicLevel', 'studyPlace', 'learningType']
