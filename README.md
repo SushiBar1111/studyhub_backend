@@ -6,3 +6,9 @@ NOTE:
 2. Different feature is in a different django app to each other. e.g. filter, search, Profile, and other are different django app. We make it like this so that we won't get confused to develop each feature.
 3. This is our college assignment/project, not for used publicly.
 4. All of the codes maybe will feel un-structured, because this is our first time creating a mobile app.
+
+FEATURES (similar to other dating apps like bumble, tinder, etc.):
+1. Search & Filter: Find study partners based on subject interest, preferred study location, and learning style.
+2. Chat Functionality: Communicate with your matched study partners directly in the app.
+3. Profile Management: Customize your profile with details such as your learning preferences, subjects, and more.
+
