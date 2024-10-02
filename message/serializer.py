@@ -8,14 +8,14 @@ class ConvoSerializer(serializers.ModelSerializer):
         fields = ['id', 'user1', 'user2', 'created_at', 'messages']
 
 class MessageSerializer(serializers.ModelSerializer):
-    convo = ConvoSerializer(read_only=True)
-    sender = serializers.StringRelatedField()
+    convo = serializers.PrimaryKeyRelatedField(queryset=Convo.objects.all())  # Relasi ke convo
+    sender = serializers.PrimaryKeyRelatedField(queryset=UserProfile.objects.all())  # Relasi ke sender
+
     class Meta:
         model = Message
-        fields = ['Convo_id', 'convo', 'sender', 'text', 'timestamp']
+        fields = ['convo', 'sender', 'text', 'timestamp']  # Sertakan 'sender' di dalam fields
 
-class ChatListSerializer(serializers.ModelSerializer): # cuman buat serializer chat list
-    class Meta:
-        model = UserProfile
-        fields = ['id', 'first_name', 'profilePicture']
+
+
+
 
